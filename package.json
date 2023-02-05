@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "nodemon --exec babel-node --experimental-specifier-resolution=node src/index.js",
     "start": "node src/index.js",
-    "lint": "eslint"
+    "lint": "eslint",
+    "run:migrations": "knex migrate:latest --knexfile ./src/api/knexfile.js",
+    "run:seeds": "knex seed:run --knexfile ./src/api/knexfile.js"
   },
   "keywords": [],
   "author": "",
@@ -22,6 +24,7 @@
     "prettier": "^2.8.3"
   },
   "dependencies": {
+    "@sendgrid/mail": "^7.7.0",
     "bcrypt": "^5.1.0",
     "body-parser": "^1.20.1",
     "cors": "^2.8.5",
@@ -32,6 +35,9 @@
     "joi": "^17.7.0",
     "jsonwebtoken": "^9.0.0",
     "knex": "^2.4.2",
-    "mysql2": "^3.1.0"
+    "knex-paginate": "^3.0.2",
+    "mysql2": "^3.1.0",
+    "pdf-creator-node": "^2.3.5",
+    "sib-api-v3-sdk": "^8.5.0"
   }
 }

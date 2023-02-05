@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Hello world!</title>
+  </head>
+  <body>
+    <table style="width: 100%">
+      <tr>
+        <td>sku</td>
+        <td>Company nit</td>
+        <td>Product</td>
+        <td>Description</td>
+        <td>Buy price</td>
+        <td>Sell price</td>
+        <td>On stock</td>
+      </tr>
+      {{#each inventories}}
+      <tr>
+        <td>{{this.sku}}</td>
+        <td>{{this.company_nit}}</td>
+        <td>{{this.product_name}}</td>
+        <td>{{this.description}}</td>
+        <td>{{this.buy_price}}</td>
+        <td>{{this.sell_price}}</td>
+        <td>{{this.on_stock}}</td>
+      </tr>
+      {{/each}}
+    </table>
+  </body>
+</html>

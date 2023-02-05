@@ -1,21 +1,24 @@
 import knex from "../database";
+import { getInventoryPDF } from "../utilities/pdf";
 
 export const index = async (req, res, next) => {
   const { action } = req.query;
 
   try {
-    let companies;
+    let inventories;
 
-    if (action === "getAll") {
-      companies = await knex("companies");
+    if (action === "getPdf") {
+      const data = await knex("inventories");
+      getInventoryPDF(data);
+      res.status(200).json("ok");
     } else {
-      companies = await knex("companies").paginate({
+      inventories = await knex("inventories").paginate({
         perPage: 10,
         currentPage: 0,
       });
     }
 
-    res.status(200).json(companies);
+    res.status(200).json(inventories);
   } catch (error) {
     return next(error);
   }
@@ -25,8 +28,8 @@ export const store = async (req, res, next) => {
   const data = req.body;
 
   try {
-    await knex("companies").insert(data);
-    res.status(200).json("Company saved successfully");
+    await knex("inventories").insert(data);
+    res.status(200).json("inventory saved successfully");
   } catch (error) {
     return next(error);
   }
@@ -35,8 +38,8 @@ export const store = async (req, res, next) => {
 export const edit = async (req, res, next) => {
   const { id } = req.params;
   try {
-    const company = await knex("companies").where("nit", id).first();
-    res.status(200).json(company);
+    const inventory = await knex("inventories").where("id", id).first();
+    res.status(200).json(inventory);
   } catch (error) {
     return next(error);
   }
@@ -47,8 +50,8 @@ export const update = async (req, res, next) => {
   const data = req.body;
 
   try {
-    await knex("companies").where("nit", id).update(data);
-    res.status(200).json("Company updated successfully");
+    await knex("inventories").where("id", id).update(data);
+    res.status(200).json("inventory updated successfully");
   } catch (error) {
     return next(error);
   }
@@ -58,8 +61,8 @@ export const destroy = async (req, res, next) => {
   const { id } = req.params;
 
   try {
-    await knex("companies").where("nit", id).del();
-    res.status(200).json("Company removed succesfully");
+    await knex("inventories").where("id", id).del();
+    res.status(200).json("inventory removed succesfully");
   } catch (error) {
     return next(error);
   }
